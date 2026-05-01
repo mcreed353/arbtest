@@ -1,329 +1,350 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $deposit['websitename']; ?></title>
+    <title>ArbitrageWise - Deposit Funds</title>
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/animate.min.css'); ?>">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/calendar.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/generics.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/common.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/member.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/footer.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/datepicker.css'); ?>">
-
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/styles/modal.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('layout/member/assets/css/main.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('layout/member/assets/css/custom.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('layout/member/assets/css/jquery.countdown.css'); ?>">
-
-<link rel="stylesheet" href="<?php echo base_url('custom/css/flipclock.css'); ?>" type="text/css" media="all" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0A0E17; color: #E5E7EB; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        
+        /* Premium Header */
+        .premium-header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #38BDF8, #A855F7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+        .user-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .welcome-badge {
+            background: #0F172A;
+            border: 1px solid #1E293B;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        .balance-badge {
+            background: linear-gradient(135deg, #38BDF8, #A855F7);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #0A0E17;
+        }
+        
+        /* Main Container */
+        .deposit-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Premium Card */
+        .premium-card {
+            background: #0F172A;
+            border: 1px solid #1E293B;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #1E293B, #0F172A);
+            padding: 1.5rem;
+            border-bottom: 1px solid #1E293B;
+        }
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Info Box */
+        .info-box {
+            background: #1E293B;
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #38BDF8;
+        }
+        .info-box h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94A3B8;
+            margin-bottom: 0.75rem;
+        }
+        .info-box p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        .info-box strong {
+            color: #38BDF8;
+        }
+        
+        /* Address Box */
+        .address-box {
+            background: #1E293B;
+            border-radius: 16px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .address-box code {
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            color: #38BDF8;
+            flex: 1;
+        }
+        .copy-btn {
+            background: #38BDF8;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: #0A0E17;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .copy-btn:hover {
+            background: #A855F7;
+            color: white;
+        }
+        
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #94A3B8;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #38BDF8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #38BDF8, #A855F7);
+            border: none;
+            padding: 1rem;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #0A0E17;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        /* Status Alert */
+        .status-alert {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            display: none;
+        }
+        .status-alert.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10B981;
+            color: #10B981;
+        }
+        
+        /* Transaction Table */
+        .history-section {
+            margin-top: 2rem;
+            background: #0F172A;
+            border: 1px solid #1E293B;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .history-header {
+            padding: 1rem 1.5rem;
+            background: #1E293B;
+            border-bottom: 1px solid #1E293B;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .history-table th, .history-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #1E293B;
+        }
+        .history-table th {
+            color: #94A3B8;
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .status-completed { color: #10B981; }
+        .status-pending { color: #F59E0B; }
+        
+        @media (max-width: 768px) {
+            .premium-header { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .address-box { flex-direction: column; text-align: center; }
+            .history-table th, .history-table td { padding: 0.75rem 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-
-	<header>
-    <div class="floatLeft p-l-15" id="logotype">
-        <a href="/" title="<?php echo $deposit['websitename']; ?>" style="color:white;"><?php echo $deposit['websitename']; ?></a>
+<header class="premium-header">
+    <a href="<?php echo base_url('webtask'); ?>" class="logo">ARBITRA<span style="color:#38BDF8;">WISE</span></a>
+    <div class="user-info">
+        <div class="welcome-badge">👋 Welcome, <?php echo $deposit['username']; ?></div>
+        <div class="balance-badge">💰 $<?php echo number_format($deposit['pack_balance'] ?? 0, 2); ?></div>
     </div>
+</header>
 
-    <div class="member">
-        Welcome <?php echo $deposit['username']; ?>    
+<div class="deposit-container">
+    <div class="premium-card">
+        <div class="card-header">
+            <h2><i class="fas fa-arrow-down" style="color: #10B981;"></i> Deposit Funds</h2>
         </div>
-    <div class="statistics">
-       <?php echo $deposit['amount_balanceee']." BTC"; ?>
-    </div>
-
-    <div id="notify">
-        <i class="fa fa-bell-o" id="alertBell"></i>
-        <span id="notify-msg"></span>
-    </div>
-
-    <div class="pull-right" style="padding-top:3px; margin-right:5px;">
-        <div id="google_translate_element"></div>
-        <script type="text/javascript">
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-            }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    </div>
-    <div class="clear"></div>
-	</header>
-
-	<div class="container-fluid" id="content">
-		<div class="row">
-
-
-			<div class="col-sm-3" id="left">
-            	<h3 class="menu-header">Member tools</h3>
-            	<?php include('partial/menu.php'); ?>
-			</div>
-            <div class="col-sm-8 col-md-8" style="margin-top: 20px;">
-
-
-            <div class="showHide m-b-20 alert alert-info" id="upgrade_instructions">
-                <h3>Instructions - Read Carefully</h3>
-
-                <ul class="fs15">
-                    <li>You must complete the following <b>2 steps</b>.</li>
-                    <li><b>Step 1:</b> Send bitcoin payment to the wallet listed by the payee.</li>
-                    <li><b>Step 2:</b> Provide the transaction hash ID using the form provided below.
-                    </li>
-                    <li>This system features automatic payment approval which takes 30-60 minutes.</li>
-                    <li>Your upgrade will not be in effect until donation is validated and approved by the system.
-                    </li>
-                    <li>All donations are voluntarily and final. Refunds are not available.
-                    </li>
-                    <li>Communication about the upgrade process, donation and approval is between you and the payee only.
-                    </li>
-                    <li><b>You have 2 days to upgrade to Stage 1 or your account will be removed.</b></li>
-                    <li>If your account expires while your donation for your first upgrade is pending approval your account will not be removed.
-                    </li>
-                    <li>All disagreements and problems will be manually handled by system administrator. Submit a <a href="http://www.cryptocogent.com/support"><b>support ticket</b></a> to report any issues.
-                    </li>
-                    <li>You must read and agree to the Crypto Cogent <a href="http://www.cryptocogent.com/page/terms"><b>terms of service</b></a>.
-                    </li>
-                </ul>
-                <input type="checkbox" class="dontShow" data-what="upgrade_instructions" />
-                <span class="fs12"> Don't show this again.</span>
-
+        <div class="card-body">
+            <!-- Instructions -->
+            <div class="info-box">
+                <h4><i class="fas fa-info-circle"></i> Important Information</h4>
+                <p>• <strong>Minimum Deposit:</strong> $50 USDT</p>
+                <p>• <strong>Network:</strong> TRC20 (Tron) – <span style="color:#F59E0B;">Sending on other networks will result in permanent loss!</span></p>
+                <p>• <strong>Processing Time:</strong> 5-10 minutes after blockchain confirmation</p>
+                <p>• Funds are automatically credited to your trading balance</p>
             </div>
-
-                <h1>Buy Ad Packs</h1>
-                <div class="col-sm-6">
-
-               <?php if ($deposit['requestpending'] === 'pendingrequest') { ?>
-
-                        <div class="alert alert-danger">
-                            You Already Have A Pending Request
-                        </div>
-
-               <?php 
-
-               }
-               else{ 
-                     echo form_open('deposit');?>
-                    <div class="form-group">
-                    <label for="creditbuyvalue">
-                    How many ad credits you want to buy
-                    </label>
-                    <select name="creditbuyvalue" class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                    </select>
-                    <div style="margin-top:30px;">     
-                    <input type="submit" name="buyvaluesubmit" value="Buy" class="btn btn-md btn-primary" style="padding-left:20px !important; padding-right: 20px !important;">
-                    </div>
-                </div> 
-
-                <?php echo form_close(); 
-
-            }
-               ?>
-
-
-             
-
-                    <?php 
-
-                            if (isset($deposit['TotalAmount'])) {
-                                # code...
-                                ?>
-                                <h3>Total Price Of Ad Credits Will Be <?php echo $deposit['TotalAmount']; ?></h3>
-                             <?php   
-                            }
-                    ?>
+            
+            <!-- Deposit Address -->
+            <div class="address-box">
+                <code id="depositAddress">TWzEJEHJK4frz25CavqU8uoD97jfwzs2YLg</code>
+                <button class="copy-btn" onclick="copyAddress()"><i class="fas fa-copy"></i> Copy Address</button>
             </div>
-
-            <div class="col-md-12">
-                <h4 style="border:2px solid rgb(99, 227, 99); padding: 5px;">
-                    <span class="red">IMPORTANT:</span> Send donation <b>ONLY</b> to the <b>blockchain.info</b> wallet listed below
-                    &nbsp; <i class="fa fa-arrow-down red fs18" aria-hidden="true"></i>
-                </h4>
+            
+            <!-- Amount Input -->
+            <div class="form-group">
+                <label><i class="fas fa-dollar-sign"></i> Amount (USDT)</label>
+                <input type="number" id="depositAmount" class="form-control" placeholder="Enter amount (min $50)" min="50" step="10">
             </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <?php if(isset($deposit['btc_add'])): ?>
-                    <div class="col-lg-12 center m-t-10">
-                        <div class="alert alert-warning center">
-                             Please pay your pending <?php if(isset($deposit['amounttopay'])): ?><?php echo $deposit['amounttopay']; ?><?php endif; ?> BTC to the following btc address
-                            <p style="font-weight:bold;"><?php echo "<br>".$deposit['btc_add']; ?></p>
-                        </div>
-                    </div>
-                    <?php
-                    endif;
-                    ?>
-
-            <?php 
-
-                    if (isset($deposit['paymentMessage'])) {
-                        # code...
-                        ?>
-                         <div class="col-lg-12 center m-t-10">
-                            <div class="alert alert-danger center">
-                            <h3><?php echo $deposit['paymentMessage']; ?></h3>
-                            </div>
-                         </div>
-                        <?php
-                    }
-
-                     if (isset($deposit['ErrorAmount'])) {
-                        # code...
-                        ?>
-                         <div class="col-lg-12 center m-t-10">
-                            <div class="alert alert-danger center">
-                            <h3><?php echo $deposit['ErrorAmount']; ?></h3>
-                            </div>
-                         </div>
-                        <?php
-                    }
-
-                    ?>
-
-
-                </div>
-                <div class="col-md-12">
-                <div class="clear"></div>
-                     <h2 class="tile-title m-t-20"> STEP 2: Submit the transaction hash ID</h2>
-                        <div class="showHide m-b-20 alert alert-info" id="step2_instructions">
-                            <h3> Where to find the Transaction Hash ID after you made payment?</h3>
-
-                           <ol class="fs15">
-        <li> Go to <a href="https://blockchain.info/">https://blockchain.info/</a></li>
-        <li>Copy the Bitcoin Wallet address you see in Step 1 and paste it in the search box on Blockchain.info then click on search.</li>
-        <li> On the next page, look for Transactions (Oldest First). Just below that you will see a long string of characters.
-        </li>
-        <li>Copy that long string of characters and come paste it in here in the Transaction Hash ID field.</li>
-        <li>Click on Submit. Voila, if you've done it correctly your upgrade will be in effect as soon as our automated system approves the transaction.
-        </li>
-    </ol>
-    <div class="m-b-10">
-        <b><span class="red">WARNING!</span> For users of LocalBitcoins.com, Xapo.com and similar exchanges:</b>
-        Our automated system cannot verify all transactions from these websites. If you use localbitcoins.com and xapo.com we
-        kindly ask you to create a Free Bitcoin Wallet with <a href="https://blockchain.info/wallet/#/">https://blockchain.info/wallet/#/</a>
-        to do transactions safely and securely on our platform.
-        We want all transactions to be secure and verifiable and thus they need to happen on the blockchain.
-        Some wallet services allow for internal transfers without running it through the blockchain and that
-        is unacceptable to Crypto Cogent. Please ensure you have a blockchain.info wallet to guarantee you have a safe donating experience.
-
+            
+            <!-- Submit Button -->
+            <button class="submit-btn" onclick="submitDeposit()"><i class="fas fa-paper-plane"></i> Submit Deposit Request</button>
+            
+            <!-- Status Message -->
+            <div id="depositStatus" class="status-alert success">
+                <i class="fas fa-check-circle"></i> Deposit request submitted! Funds will be credited within 5-10 minutes.
+            </div>
+        </div>
     </div>
-    <input type="checkbox" class="dontShow" data-what="step2_instructions" />
-    <span class="fs12"> Don't show this again.</span>
-     </div>
-
-                </div>
-                <div class="col-md-6">
-
-                <?php echo form_open('deposit'); ?>
-
-                    <div class="form-group">
-                        <label for="hashPayment">Enter Transaction Hash</label>
-                        <input type="text" name="hashPayment" class="form-control" placeholder="Enter Hash" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exactPayment">Enter Exact Amount</label>
-                        <input type="text" name="exactPayment" class="form-control" placeholder="Exact Amount" required>
-                    </div>
-                    <div style="text-align:center">
-                    <input type="submit" name="submitPaymentInfo" class="btn btn-md btn-primary" value="Submit Payment">
-                    </div>
-                <?php echo form_close(); ?>
-
     
-                 <?php if(isset($deposit['messageReceived'])): ?>
-                 <div class="alert alert-warning center">
-                    <?php echo $deposit['messageReceived']; ?>
-                 </div>
-                <?php endif; ?>
-
-                </div>
-                <h2 class="tile-title m-t-20">Transaction History</h2>
-                 <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Transaction No.</th>
-                            <th>Credit Packs</th>
-                            <th>Hash</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php if(isset($deposit['completedata'])): ?>
-                        <?php foreach ($deposit['completedata'] as $cmpdata): ?>
-                        <tr>
-                            <td><?php echo $cmpdata->id; ?></td>
-                            <td><?php echo $cmpdata->credit_packs; ?></td>
-                            <td><?php echo $cmpdata->hash; ?></td>
-                            <td><?php echo $cmpdata->status; ?></td>
-                        </tr>
-                    <?php endforeach;?>
+    <!-- Transaction History -->
+    <div class="history-section">
+        <div class="history-header">
+            <h3 style="margin:0;"><i class="fas fa-history"></i> Deposit History</h3>
+        </div>
+        <table class="history-table">
+            <thead>
+                <tr><th>ID</th><th>Amount</th><th>Hash</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                <?php if(isset($deposit['completedata']) && !empty($deposit['completedata'])): ?>
+                    <?php foreach ($deposit['completedata'] as $cmpdata): ?>
+                    <tr>
+                        <td>#<?php echo $cmpdata->id; ?></td>
+                        <td><?php echo $cmpdata->credit_packs; ?> Credits</td>
+                        <td><code style="font-size:11px;"><?php echo substr($cmpdata->hash, 0, 15); ?>...</code></td>
+                        <td class="status-<?php echo $cmpdata->status; ?>"><?php echo ucfirst($cmpdata->status); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
                 <?php else: ?>
-                    <td>NO REQUEST HAVE BEEN ADDED YET</td>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
+                    <tr><td colspan="4" style="text-align:center;">No deposit history yet</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
+<script>
+function copyAddress() {
+    var copyText = document.getElementById('depositAddress').innerText;
+    navigator.clipboard.writeText(copyText);
+    alert('✅ Address copied to clipboard:\n' + copyText);
+}
 
-
-            </div>
-		</div>
-
-	</div>						
-
-<script src="<?php echo base_url('assets/bootstrap/js/jquery.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/jquery-ui.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/jquery.easing.1.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/toggler.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/scroll.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/bootstrap/js/datepicker.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/tinynav.min.js'); ?>"></script>
-
-<!-- Site functions -->
-<script src="<?php echo base_url('assets/scripts/ajaxupload.js'); ?> "></script>
-<script src="<?php echo base_url('assets/scripts/my_account.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/forms.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/modal.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/getList.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/tooltipsy.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/scripts/sortable.js'); ?>"></script>
-
-<script type="text/javascript" src="<?php echo base_url('layout/member/assets/js/jquery.plugin.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('layout/member/assets/js/jquery.countdown.min.js'); ?>"></script>
-<script type="text/javascript">var mim = {
-   baseUrl: 'http://www.cryptocogent.com/',
-   assetPath: '/assets/',
-   isGuest: false,
-   isActive: false,
-   launchtime: 0,
-   alertInterval: 10000,
-   alertCount: 0,
-   teAlert: 'bell'
-};
-var currentDateTime = 0;</script>
-<script type="text/javascript" src="<?php echo base_url('custom/js/flipclock.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('custom/js/my_flipclock.js'); ?>"></script>
-
-<script src="<?php echo base_url('layout/member/assets/js/main.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/bootstrap/js/functions.js'); ?>"></script>
-
-
-
+function submitDeposit() {
+    var amount = document.getElementById('depositAmount').value;
+    if (!amount || amount < 50) {
+        alert('❌ Minimum deposit is $50 USDT');
+        return;
+    }
+    
+    var address = document.getElementById('depositAddress').innerText;
+    var statusDiv = document.getElementById('depositStatus');
+    
+    statusDiv.style.display = 'block';
+    
+    alert('📌 Please send ' + amount + ' USDT to:\n\n' + address + '\n\n⚠️ Send ONLY on TRC20 network!\n\nYour balance will be updated automatically after confirmation.');
+    
+    // Optional: Auto-hide status after 5 seconds
+    setTimeout(function() {
+        statusDiv.style.display = 'none';
+    }, 5000);
+}
+</script>
 
 </body>
 </html>
