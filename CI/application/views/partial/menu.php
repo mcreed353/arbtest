@@ -1,13 +1,7 @@
-<!-- Side Menu Member-->
-<ul class="list-unstyled side-menu">    
-    <?php if ($isAdmin) { ?>
-        <li>
-            <a class="sa-side-home" href="<?= SITE_ADDRESS ?>admin.html">
-                <span class="menu-item">Admin</span>
-            </a>
-        </li>
-
-    <?php } ?>
-    <?php echo Widget::run('menu','member'); ?>
+<ul class="nav nav-pills nav-stacked">
+    <li><a href="<?php echo base_url('webtask'); ?>">📊 Arbitrage Dashboard</a></li>
+    <li><a href="<?php echo base_url('deposit'); ?>">💰 Deposit Funds</a></li>
+    <li><a href="<?php echo base_url('withdraw'); ?>">💸 Withdraw Profits</a></li>
+    <li><a href="<?php echo base_url('dividendsview'); ?>">📈 Trade History</a></li>
+    <li><a href="<?php echo base_url('logout'); ?>">🚪 Sign Out</a></li>
 </ul>
-
